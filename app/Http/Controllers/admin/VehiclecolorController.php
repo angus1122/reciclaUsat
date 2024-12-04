@@ -15,7 +15,7 @@ class VehiclecolorController extends Controller
     public function index(Request $request)
     {
         $colors = Vehiclecolor::all();
-        
+
         if ($request->ajax()) {
 
             return DataTables::of($colors)
@@ -101,13 +101,22 @@ class VehiclecolorController extends Controller
     public function update(Request $request, string $id)
     {
         try {
-
+            // Validación inicial para el campo "name"
             $request->validate([
-                "name" => "unique:vehiclecolors,name," . $id,
+                "name" => "required|unique:vehiclecolors,name," . $id,
+            ], [
+                "name.required" => "Debe colocar el nombre del color.",
+                "name.unique" => "El nombre del color ya existe.",
             ]);
 
+            // Buscar el color por su ID
             $colors = Vehiclecolor::find($id);
 
+            if (!$colors) {
+                return response()->json(['message' => 'Color no encontrado'], 404);
+            }
+
+            // Validar que el código de color no esté duplicado
             $code_color = Vehiclecolor::where('color_code', $request->color_code)
                 ->where('id', '!=', $id)
                 ->first();
@@ -116,13 +125,15 @@ class VehiclecolorController extends Controller
                 return response()->json(['message' => 'Color ya existe'], 400);
             }
 
+            // Actualizar el registro excepto el campo "hex_code"
             $colors->update($request->except('hex_code'));
 
             return response()->json(['message' => 'Color actualizado'], 200);
         } catch (\Throwable $th) {
-            return response()->json(['message' => 'Error actualizar: ' . $th->getMessage()], 500);
+            return response()->json(['message' => 'Error al actualizar: ' . $th->getMessage()], 500);
         }
     }
+
 
     /**
      * Remove the specified resource from storage.

@@ -341,11 +341,11 @@ return [
                     'icon' => 'fas fa-trailer',
                 ],
 
-                [
+  /*               [
                     'text' => 'ㅤTipos',
                     'route' => 'admin.types.index',
                     'icon' => 'fas fa-truck-loading',
-                ],
+                ], */
                 [
                     'text' => 'ㅤColores',
                     'route' => 'admin.colors.index',
