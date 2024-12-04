@@ -341,11 +341,11 @@ return [
                     'icon' => 'fas fa-trailer',
                 ],
 
-  /*               [
+                [
                     'text' => 'ㅤTipos',
                     'route' => 'admin.types.index',
                     'icon' => 'fas fa-truck-loading',
-                ], */
+                ],
                 [
                     'text' => 'ㅤColores',
                     'route' => 'admin.colors.index',
@@ -413,7 +413,7 @@ return [
                 ],
                 [
                     'text' => 'ㅤProgramación de Rutas',
-                    'route'  => 'admin.schedulesdetails.index', 
+                    'route'  => 'admin.schedulesdetails.index',
                     'icon' => 'fas fa-calendar-alt',
                 ],
             ]
@@ -423,11 +423,11 @@ return [
             'text' => 'GESTIÓN DE MANTENIMIENTO',
             'icon' => '',
             'submenu' => [
-                [
+                /* [
                     'text' => 'ㅤTipos',
                     'route' => '',
                     'icon' => 'fas fa-cogs',
-                ],
+                ], */
                 [
                     'text' => 'ㅤMantenimiento',
                     'route' => 'admin.maintenances.index',

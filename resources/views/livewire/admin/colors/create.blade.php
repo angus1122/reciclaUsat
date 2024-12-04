@@ -12,7 +12,7 @@
     </div>
 
     <div class="form-group">
-        {!! Form::label('hex_code', 'Hexadecimal') !!}
+        {!! Form::label('hex_code', 'Código Hexadecimal') !!}
         <input type="text" name="hex_code" id="hex_code" class="form-control" readonly value="{{ $color_code }}">
     </div>
 

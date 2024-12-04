@@ -59,24 +59,28 @@ class VehiclecolorController extends Controller
     public function store(Request $request)
     {
         try {
-
+            // Validación para asegurarse de que 'name' no sea vacío y sea único
             $request->validate([
-                "name" => "unique:vehiclecolors",
+                'name' => 'required|string|unique:vehiclecolors,name', // 'required' asegura que no sea nulo
+                'color_code' => 'required|string', // Validar que el color_code no esté vacío
             ]);
 
+            // Verificar si el código de color ya existe
             $code_color = Vehiclecolor::where('color_code', $request->color_code)->first();
 
             if ($code_color) {
-                return response()->json(['message' => 'Color ya existe'], 400);
+                return response()->json(['message' => '¡El color elegido ya existe!'], 400);
             }
 
+            // Crear el nuevo color, excluyendo el campo 'hex_code' si no se debe guardar
             Vehiclecolor::create($request->except('hex_code'));
 
-            return response()->json(['message' => 'Color registrado'], 200);
+            return response()->json(['message' => '¡Color registrado correctamente!'], 200);
         } catch (\Throwable $th) {
             return response()->json(['message' => 'Error en el registro: ' . $th->getMessage()], 500);
         }
     }
+
 
     /**
      * Display the specified resource.
@@ -101,12 +105,14 @@ class VehiclecolorController extends Controller
     public function update(Request $request, string $id)
     {
         try {
-            // Validación inicial para el campo "name"
+            // Validación para asegurar que el campo "name" esté presente y sea único
             $request->validate([
-                "name" => "required|unique:vehiclecolors,name," . $id,
+                'name' => 'required|string|unique:vehiclecolors,name,' . $id, // Asegura que el nombre sea único pero permite el valor actual
+                'color_code' => 'required|string', // Validar que el color_code no esté vacío
             ], [
-                "name.required" => "Debe colocar el nombre del color.",
-                "name.unique" => "El nombre del color ya existe.",
+                'name.required' => 'Debe ingresar el nombre del color.',
+                'name.unique' => 'Este nombre de color ya existe.',
+                'color_code.required' => 'Debe ingresar el código de color.',
             ]);
 
             // Buscar el color por su ID
@@ -125,7 +131,7 @@ class VehiclecolorController extends Controller
                 return response()->json(['message' => 'Color ya existe'], 400);
             }
 
-            // Actualizar el registro excepto el campo "hex_code"
+            // Actualizar el registro, excluyendo el campo "hex_code"
             $colors->update($request->except('hex_code'));
 
             return response()->json(['message' => 'Color actualizado'], 200);

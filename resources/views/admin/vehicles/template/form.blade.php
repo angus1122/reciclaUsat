@@ -46,17 +46,13 @@
     </div>
     <div class="form-group col-6">
         {!! Form::label('color_id', 'Color') !!}
-        <div class="d-flex align-items-center">
-            {!! Form::select('color_id', $colors, null, [
-                'class' => 'form-control mr-2',
-                'id' => 'color_id',
-                'style' => 'width: 80%;',
-                'required',
-            ]) !!}
-            <input wire:model.live="color_code" type="color" name="color_code" id="color_code" class="form-control"
-                style="width: 20%; height: 38px;">
-        </div>
+        {!! Form::select('color_id', $colors, null, [
+            'class' => 'form-control',
+            'id' => 'color_id',
+            'required',
+        ]) !!}
     </div>
+
 </div>
 <div class="form-row">
     <div class="form-group col-6">

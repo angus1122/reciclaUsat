@@ -20,7 +20,7 @@
                         <th>ID</th>
                         <th>NOMBRE</th>
                         <th>DESCRIPCIÓN</th>
-                        <th width="25">ACCIONES</th>
+                        <th width="20">ACCIONES</th>
                     </tr>
                 </thead>
                 <tbody>
