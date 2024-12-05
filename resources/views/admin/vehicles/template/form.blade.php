@@ -44,16 +44,25 @@
             'required',
         ]) !!}
     </div>
+
     <div class="form-group col-6">
-        {!! Form::label('color_id', 'Color') !!}
-        {!! Form::select('color_id', $colors, null, [
-            'class' => 'form-control',
-            'id' => 'color_id',
-            'required',
-        ]) !!}
+        {!! Form::label('color_id', 'Color', ['style' => 'display: block;']) !!}
+        <div class="d-flex">
+            {!! Form::select('color_id', $colors, null, [
+                'class' => 'form-control',
+                'style' => 'width: 100%;',
+                'id' => 'color_id',
+                'required',
+            ]) !!}
+{{--             <div
+                style="width: 28%; height: 38px; background-color: {{ $hexacolors }}; border: 1px solid #ccc; margin-left: auto; display: flex; align-items: center; justify-content: center;">
+            </div> --}}
+        </div>
     </div>
 
+
 </div>
+
 <div class="form-row">
     <div class="form-group col-6">
         {!! Form::label('plate', 'Placa') !!}

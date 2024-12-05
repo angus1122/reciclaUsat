@@ -19,13 +19,12 @@
 
 <div class="form-row">
     <div class="form-group col-3">
-        {!! Form::file('image', [
+        {!! Form::file('logo', [
             'class' => 'form-control-file d-none', // Oculta el input
             'accept' => 'image/*',
             'id' => 'imageInput',
         ]) !!}
         <button type="button" class="btn btn-primary" id="imageButton"><i class="fas fa-image"></i> Imagen</button>
-
     </div>
     <div class="form-group col-9">
         <img id="imagePreview" src="#" alt="Vista previa de la imagen"

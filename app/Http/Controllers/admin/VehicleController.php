@@ -69,34 +69,16 @@ class VehicleController extends Controller
         }
     }
 
-    /*
-    ->addColumn('occupants', function ($vehicle) {
-        //return '<a href="' . route('vehicles.occupants', $vehicle->id) . '" class="btn btn-success btn-sm"><i class="fas fa-people-arrows"></i>&nbsp;&nbsp;(0)</a>';
-        return '<button class="btn btn-success btn-sm btnOccupants" id="' . $vehicle->id . '"><i class="fas fa-people-arrows"></i>&nbsp;&nbsp;(0)</button>';
-    })
-
-    if ($row->status !== 1) {
-        return '<button class="btn btn-secondary btn-sm" disabled>
-        <i class="fas fa-people-arrows"></i>&nbsp;&nbsp;(0)
-        </button>';
-    }
-    ->addColumn('occupants', function ($row) {
-        $url = route('vehicles.occupants', ['id' => $row->id]);
-        return '<a href="' . $url . '" class="btn btn-success btn-sm">
-         <i class="fas fa-people-arrows"></i>&nbsp;&nbsp;(0)
-         </a>';
-        })
-     */
     public function create()
     {
-
         $brandsSQL = Brand::whereRaw("id IN (SELECT brand_id FROM brandmodels)");
         $brands = $brandsSQL->pluck("name", "id");
         $models = Brandmodel::where("brand_id", $brandsSQL->first()->id)->pluck("name", "id");
         $types = Vehicletype::pluck("name", "id");
-        $colors = Vehiclecolor::pluck("name", "id");
+        $colors = Vehiclecolor::pluck("name", "id", "color_code");
         return view("admin.vehicles.create", compact("brands", "models", "types", "colors"));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -229,9 +211,10 @@ try {
         $brands = $brandsSQL->pluck("name", "id");
         $models = Brandmodel::where("brand_id", $vehicle->brand_id)->pluck("name", "id");
         $types = Vehicletype::pluck("name", "id");
-        $colors = Vehiclecolor::pluck("name", "id");
+        $colors = Vehiclecolor::pluck("name", "id", "color_code");
         return view("admin.vehicles.edit", compact("brands", "models", "types", "colors", "vehicle"));
     }
+
 
     /**
      * Update the specified resource in storage.
